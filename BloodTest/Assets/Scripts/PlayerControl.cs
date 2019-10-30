@@ -40,8 +40,8 @@ public class PlayerControl : MonoBehaviour
             animator.SetFloat("moveSpeed", inputV);
             Vector3 moveForward = new Vector3(inputMoveX * mainCamera.transform.right.x, 0, inputMoveX * mainCamera.transform.right.z)
                                               + new Vector3(inputMoveY * mainCamera.transform.forward.x, 0, inputMoveY * mainCamera.transform.forward.z);
-            transform.rotation = Quaternion.LookRotation(moveForward);
-            //transform.rotation = Quaternion.Lerp(transform.rotation, Quaternion.LookRotation(moveForward), 0.8f);
+            //transform.rotation = Quaternion.LookRotation(moveForward);
+            transform.rotation = Quaternion.Lerp(transform.rotation, Quaternion.LookRotation(moveForward), 0.2f);
             transform.position += Time.deltaTime * inputV * speed * transform.forward;
         }
         else animator.SetFloat("moveSpeed", 0);
