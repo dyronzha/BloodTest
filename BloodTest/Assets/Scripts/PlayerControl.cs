@@ -12,6 +12,8 @@ public class PlayerControl : MonoBehaviour
     int[] x = new int[4];
 
     public float speed;
+    public float rotateAngle;
+    public float rotateSpeed;
     public Camera mainCamera;
 
     // Start is called before the first frame update
@@ -28,21 +30,27 @@ public class PlayerControl : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if (Input.GetButtonDown("LockTarget")) Debug.Log("llllllllllllllllllllooooock");
         inputMoveX = Input.GetAxis("Move Horizontal");
         inputMoveY = Input.GetAxis("Move Vertical");
-        Debug.Log(inputMoveX + " , " + inputMoveY);
 
 
-        float inputV = inputMoveX*inputMoveX + inputMoveY* inputMoveY;
-        
+        float inputV = Mathf.Clamp01(inputMoveX * inputMoveX + inputMoveY * inputMoveY);
+
         if (inputV > 0.15f)
         {
             animator.SetFloat("moveSpeed", inputV);
-            Vector3 moveForward = new Vector3(inputMoveX * mainCamera.transform.right.x, 0, inputMoveX * mainCamera.transform.right.z)
-                                              + new Vector3(inputMoveY * mainCamera.transform.forward.x, 0, inputMoveY * mainCamera.transform.forward.z);
+            Vector3 moveForward = (new Vector3(inputMoveX * mainCamera.transform.right.x, 0, inputMoveX * mainCamera.transform.right.z)
+                                              + new Vector3(inputMoveY * mainCamera.transform.forward.x, 0, inputMoveY * mainCamera.transform.forward.z)).normalized;
+
+            float difAngle = Vector3.Angle(transform.forward, moveForward);
+
             //transform.rotation = Quaternion.LookRotation(moveForward);
-            transform.rotation = Quaternion.Lerp(transform.rotation, Quaternion.LookRotation(moveForward), 0.2f);
-            transform.position += Time.deltaTime * inputV * speed * transform.forward;
+            transform.rotation = Quaternion.Lerp(transform.rotation, Quaternion.LookRotation(moveForward), Time.deltaTime * rotateSpeed);
+            if (difAngle < rotateAngle) transform.position += Time.deltaTime * inputV * speed * transform.forward;
+
+
+            Debug.Log("angleeeee " + Vector3.SignedAngle(Vector3.forward, moveForward,Vector3.up));
         }
         else animator.SetFloat("moveSpeed", 0);
 
@@ -51,18 +59,21 @@ public class PlayerControl : MonoBehaviour
 
     private void FixedUpdate()
     {
-        //float inputV = Mathf.Abs(inputMoveX) + Mathf.Abs(inputMoveY);
-        //animator.SetFloat("moveSpeed", inputV);
-        //if (inputV > 0.2f) {
+        //float inputV = Mathf.Clamp01(inputMoveX * inputMoveX + inputMoveY * inputMoveY);
 
-        //    Vector3 moveForward = new Vector3(inputMoveX * mainCamera.transform.right.x, 0, inputMoveX * mainCamera.transform.right.z)
-        //                                        + new Vector3(inputMoveY * mainCamera.transform.forward.x, 0, inputMoveY * mainCamera.transform.forward.z);
+        //if (inputV > 0.15f)
+        //{
+        //    animator.SetFloat("moveSpeed", inputV);
+        //    Vector3 moveForward = (new Vector3(inputMoveX * mainCamera.transform.right.x, 0, inputMoveX * mainCamera.transform.right.z)
+        //                                      + new Vector3(inputMoveY * mainCamera.transform.forward.x, 0, inputMoveY * mainCamera.transform.forward.z)).normalized;
 
-        //    transform.position += inputV * speed * moveForward;
-        //    transform.rotation = Quaternion.LookRotation(moveForward);
-        //    //transform.rotation = Quaternion.Lerp(transform.rotation, Quaternion.LookRotation(moveForward), 0.3f);
-        //    //transform.forward = Vector3.Lerp(transform.forward, moveForward, 0.7f);
+        //    float difAngle = Vector3.Angle(transform.forward, moveForward);
+
+        //    //transform.rotation = Quaternion.LookRotation(moveForward);
+        //    transform.rotation = Quaternion.Lerp(transform.rotation, Quaternion.LookRotation(moveForward), Time.deltaTime * rotateSpeed);
+        //    if (difAngle < rotateAngle) transform.position += Time.deltaTime * inputV * speed * transform.forward;
         //}
+        //else animator.SetFloat("moveSpeed", 0);
 
 
 
