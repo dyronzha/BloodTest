@@ -2,16 +2,23 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class EnemyBase : MonoBehaviour
+public class EnemyBase
 {
+
+    Transform _transform;
+    public Transform transform {
+        get { return _transform; }
+    }
+
     // Start is called before the first frame update
-    void Start()
+    public virtual void Init(Transform t)
     {
-        
+        _transform = t;
+
     }
 
     // Update is called once per frame
-    void Update()
+    public virtual void Update()
     {
         
     }

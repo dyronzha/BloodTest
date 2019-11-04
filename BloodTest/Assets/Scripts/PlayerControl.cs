@@ -5,11 +5,15 @@ using Rewired;
 
 public class PlayerControl : MonoBehaviour
 {
+    bool lockMod = false;
     float inputMoveX, inputMoveY;
     Animator animator;
     Player playerInput;
 
     int[] x = new int[4];
+
+    public EnemyManager enemyManager;
+    public EnemyNode[] nodes;
 
     public float speed;
     public float rotateAngle;
@@ -30,13 +34,11 @@ public class PlayerControl : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetButtonDown("LockTarget")) Debug.Log("llllllllllllllllllllooooock");
+        
+
         inputMoveX = Input.GetAxis("Move Horizontal");
         inputMoveY = Input.GetAxis("Move Vertical");
-
-
         float inputV = Mathf.Clamp01(inputMoveX * inputMoveX + inputMoveY * inputMoveY);
-
         if (inputV > 0.15f)
         {
             animator.SetFloat("moveSpeed", inputV);
@@ -54,6 +56,17 @@ public class PlayerControl : MonoBehaviour
         }
         else animator.SetFloat("moveSpeed", 0);
 
+        if (Input.GetButtonDown("LockTarget")) { 
+            
+        }
+
+        if (Input.GetKeyDown(KeyCode.Space)) {
+            enemyManager.Test(this);
+        }
+        if (Input.GetKeyDown(KeyCode.Z)) {
+            Debug.Log("yeeeeeeeeeeeee  " + nodes[0].weight);
+            enemyManager.Test2(nodes);
+        }
 
     }
 

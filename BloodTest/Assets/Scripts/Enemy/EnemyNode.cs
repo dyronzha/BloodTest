@@ -4,8 +4,10 @@ using UnityEngine;
 
 public class EnemyNode : IHeapItem<EnemyNode>
 {
-    int arrayID;
+    public int listID;
+    public float weight;
     EnemyBase enemy;
+    
 
 
     public bool walkable;
@@ -19,6 +21,16 @@ public class EnemyNode : IHeapItem<EnemyNode>
     public int hCost;
     public EnemyNode parent;
     int heapIndex;
+
+    public EnemyNode(float _weight)
+    {
+        weight = _weight;
+    }
+    public EnemyNode(EnemyBase _enemy, float _weight)
+    {
+        enemy = _enemy;
+        weight = _weight;
+    }
 
     public EnemyNode(bool _walkable, Vector3 _worldPos, int _gridX, int _gridY, int _penalty)
     {
