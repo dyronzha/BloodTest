@@ -4,22 +4,27 @@ using UnityEngine;
 
 public class EnemyManager : MonoBehaviour
 {
-    float lessAngle = 500.0f;
+    
     EnemyNode targetLockEnemy;
 
+    EnemyBase lockTarget;
+    public EnemyBase LockTarget {
+        get { return lockTarget; }
+    }
     List<EnemyBase> freeEnemy, usedEnemy;
     Heap<EnemyNode> targetHeap;
 
-    Transform player;
+    PlayerControl player;
+    Transform playerTransform;
 
     // Start is called before the first frame update
     private void Awake()
     {
+        usedEnemy = new List<EnemyBase>();
         for (int i = 0; i < transform.childCount; i++) {
             Transform enemyT = transform.GetChild(i);
             EnemyBase enemy = new EnemyBase();
             enemy.Init(enemyT);
-            usedEnemy = new List<EnemyBase>();
             usedEnemy.Add(enemy);
         }
 
@@ -35,18 +40,76 @@ public class EnemyManager : MonoBehaviour
 
     }
 
+    public void SetPlayer(PlayerControl p) {
+        player = p;
+        playerTransform = p.transform;
+    }
+
     public bool ChooseEnemyToLockTarget() {
         bool findOne = false;
+        float weight = .0f;
+        float lessAngle = 500.0f;
+        int count = 0;
+        for (int i = 0; i < usedEnemy.Count; i++) {
+            if (count >= 20) break;
+            Vector3 diffV = new Vector3(usedEnemy[i].transform.position.x - playerTransform.position.x, 0, usedEnemy[i].transform.position.z - playerTransform.position.z);
+            float dist = diffV.sqrMagnitude;
+            float angle = Vector3.SignedAngle(playerTransform.forward, diffV, Vector3.up);
+            if (dist < 100.0f && Mathf.Abs(angle) < 180.0f) {
+                if (Mathf.Abs(angle) > 0.5f) weight = angle + Mathf.Sign(angle) * dist * 0.1f;
+                else weight = angle + dist * 0.05f;
+                Debug.Log(usedEnemy[i].transform.name + "  angle:" + angle + "  dist:" + dist*0.1f);
+                if (Mathf.Abs(lessAngle) > Mathf.Abs(weight)) {
+                    lockTarget = usedEnemy[i];
+                    lessAngle = weight;
+                    findOne = true;
+                }
+                count++;
+            }
+        }
+        return findOne;
+    }
+
+    public bool SwitchEnemyLockTarget(float dir) {
+        bool findOne = false;
+        float weight = .0f;
+        float lessAngle = 500.0f;
+        int count = 0;
+        for (int i = 0; i < usedEnemy.Count; i++)
+        {
+            if (count >= 20) break;
+            Vector3 diffV = new Vector3(usedEnemy[i].transform.position.x - playerTransform.position.x, 0, usedEnemy[i].transform.position.z - playerTransform.position.z);
+            float dist = diffV.sqrMagnitude;
+            float angle = Vector3.SignedAngle(playerTransform.forward, diffV, Vector3.up);
+            if (dist < 100.0f && (Mathf.Abs(angle) > 0.5f && dir*Mathf.Sign(angle) >= .0f) && Mathf.Abs(angle) < 180.0f)
+            {
+                weight = angle + Mathf.Sign(angle) * dist * 0.1f;
+                Debug.Log(usedEnemy[i].transform.name + "  angle:" + angle + "  dist:" + dist*0.1);
+                if (Mathf.Abs(lessAngle) > Mathf.Abs(weight))
+                {
+                    lockTarget = usedEnemy[i];
+                    lessAngle = weight;
+                    findOne = true;
+                }
+                count++;
+            }
+        }
+        return findOne;
+    }
+
+    public bool ChooseEnemyToLockTargetHeap() {
+        bool findOne = false;
+        float lessAngle = 500.0f;
         EnemyNode node;
         targetHeap = new Heap<EnemyNode>(20);
 
         for (int i = 0; i < usedEnemy.Count; i++) {
             if (i == 20) break;
-            Vector3 diffV = new Vector3(usedEnemy[i].transform.position.x - player.position.x, 0, usedEnemy[i].transform.position.z - player.position.z);
+            Vector3 diffV = new Vector3(usedEnemy[i].transform.position.x - playerTransform.position.x, 0, usedEnemy[i].transform.position.z - playerTransform.position.z);
             float dist = diffV.sqrMagnitude;
             if (dist < 100.0f) {
 
-                float angle = Vector3.Angle(player.forward, diffV);
+                float angle = Vector3.Angle(playerTransform.forward, diffV);
 
                 if (Mathf.Abs(angle) > 0.1f) node = new EnemyNode(usedEnemy[i], angle + Mathf.Sign(angle) * dist * 0.05f);
                 else node = new EnemyNode(usedEnemy[i], angle + dist * 0.05f);
@@ -64,15 +127,4 @@ public class EnemyManager : MonoBehaviour
     }
 
 
-    public void Test(PlayerControl p) {
-        EnemyNode e1 = new EnemyNode(20);
-        EnemyNode e2 = new EnemyNode(-100);
-        EnemyNode e3 = new EnemyNode(50);
-        EnemyNode[] ns = new EnemyNode[3] { e1, e2, e3 };
-        p.nodes = ns;
-    }
-    public void Test2(EnemyNode[] ns) {
-        EnemyNode[] n = ns;
-        n[0].weight = -1000;
-    }
 }
