@@ -23,7 +23,7 @@ public class PlayerControl : MonoBehaviour
     private void Awake()
     {
         animator = GetComponent<Animator>();
-        playerInput = ReInput.players.GetPlayer(0);
+        //playerInput = ReInput.players.GetPlayer(0);
     }
     void Start()
     {
@@ -42,7 +42,12 @@ public class PlayerControl : MonoBehaviour
             else if (Input.GetButtonDown("RightTarget")) enemyManager.SwitchEnemyLockTarget(1.0f);
         }
         Move();
-
+        
+        if(Input.GetKey(KeyCode.Space)){
+            GetComponent<Rigidbody>().useGravity = false;
+            transform.position += 15.0f*new Vector3(0,1,0)*Time.deltaTime;
+        }
+        else GetComponent<Rigidbody>().useGravity = true;
     }
 
     private void FixedUpdate()
