@@ -6,13 +6,17 @@ using Rewired;
 public class PlayerControl : MonoBehaviour
 {
     bool lockMod = false;
-    float inputMoveX, inputMoveY;
+    float inputMoveX, inputMoveY, lastSpeed;
     Animator animator;
     Player playerInput;
 
     int[] x = new int[4];
 
     EnemyManager enemyManager;
+
+
+    Vector3 cameraOffset;
+
 
     public float speed;
     public float rotateAngle;
@@ -24,6 +28,9 @@ public class PlayerControl : MonoBehaviour
     {
         animator = GetComponent<Animator>();
         //playerInput = ReInput.players.GetPlayer(0);
+
+        cameraOffset = mainCamera.transform.position - transform.position;
+        cameraOffset = new Vector3(cameraOffset.x,0,cameraOffset.z);
     }
     void Start()
     {
@@ -43,11 +50,6 @@ public class PlayerControl : MonoBehaviour
         }
         Move();
         
-        if(Input.GetKey(KeyCode.Space)){
-            GetComponent<Rigidbody>().useGravity = false;
-            transform.position += 15.0f*new Vector3(0,1,0)*Time.deltaTime;
-        }
-        else GetComponent<Rigidbody>().useGravity = true;
     }
 
     private void FixedUpdate()
@@ -102,10 +104,14 @@ public class PlayerControl : MonoBehaviour
             transform.rotation = Quaternion.Lerp(transform.rotation, Quaternion.LookRotation(moveForward), Time.deltaTime * rotateSpeed);
             if (difAngle < rotateAngle) transform.position += Time.deltaTime * inputV * speed * transform.forward;
 
-
+            //mainCamera.transform.position = transform.position + cameraOffset;
+            lastSpeed = inputV * speed;
+            Debug.Log("last speeeeeeeed" + lastSpeed);
+            
         }
         else {
-            animator.SetFloat("moveSpeed", 0);
+            lastSpeed = Mathf.Lerp(lastSpeed,0, Time.deltaTime * 20.0f);
+            animator.SetFloat("moveSpeed", lastSpeed);
             if (lockMod) transform.rotation = Quaternion.Lerp(transform.rotation, Quaternion.LookRotation(baseFWD), Time.deltaTime * rotateSpeed);
         } 
     }
