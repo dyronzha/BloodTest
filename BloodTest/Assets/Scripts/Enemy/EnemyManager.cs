@@ -58,7 +58,6 @@ public class EnemyManager : MonoBehaviour
             if (dist < 100.0f && Mathf.Abs(angle) < 180.0f) {
                 if (Mathf.Abs(angle) > 0.5f) weight = angle + Mathf.Sign(angle) * dist * 0.1f;
                 else weight = angle + dist * 0.05f;
-                Debug.Log(usedEnemy[i].transform.name + "  angle:" + angle + "  dist:" + dist*0.1f);
                 if (Mathf.Abs(lessAngle) > Mathf.Abs(weight)) {
                     lockTarget = usedEnemy[i];
                     lessAngle = weight;
@@ -84,7 +83,6 @@ public class EnemyManager : MonoBehaviour
             if (dist < 100.0f && (Mathf.Abs(angle) > 0.5f && dir*Mathf.Sign(angle) >= .0f) && Mathf.Abs(angle) < 180.0f)
             {
                 weight = angle + Mathf.Sign(angle) * dist * 0.1f;
-                Debug.Log(usedEnemy[i].transform.name + "  angle:" + angle + "  dist:" + dist*0.1);
                 if (Mathf.Abs(lessAngle) > Mathf.Abs(weight))
                 {
                     lockTarget = usedEnemy[i];
