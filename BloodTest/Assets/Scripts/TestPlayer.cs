@@ -16,6 +16,11 @@ public class TestPlayer : MonoBehaviour
     public float rotateSpeed;
     public Camera mainCamera;
 
+    bool During_Dialogue = false;
+
+    public DialogueManager _dialoguemanager;
+    public EventManager _eventmanager;
+
     // Start is called before the first frame update
     private void Awake()
     {
@@ -41,12 +46,15 @@ public class TestPlayer : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        Move();
+        if (During_Dialogue == false) {
+            Move();
 
-        if (Input.GetButton("Jump"))
-        {
-            rigidBody.velocity = new Vector3(0, 10, 0);
+            if (Input.GetButton("Jump"))
+            {
+                rigidBody.velocity = new Vector3(0, 10, 0);
+            }
         }
+
     }
 
     private void FixedUpdate()
@@ -103,6 +111,22 @@ public class TestPlayer : MonoBehaviour
         else
         {
             animator.SetFloat("moveSpeed", 0);
+        }
+    }
+
+    public void SwitchDialogue(bool State) {
+        During_Dialogue = State;
+    }
+
+    void OnTriggerEnter(Collider checkpoint){
+        if (checkpoint.tag == "Dialogue") {
+            animator.SetFloat("moveSpeed", 0.0f);
+            _dialoguemanager.StartDialogue();
+            Destroy(checkpoint.gameObject);
+        }
+        else if (checkpoint.tag == "Events"){
+            _eventmanager.DisplayNextEvent();
+            Destroy(checkpoint.gameObject);
         }
     }
 
