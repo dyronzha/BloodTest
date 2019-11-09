@@ -16,8 +16,6 @@ public class DialogueBoxSetting : MonoBehaviour{
     }
 
     public void EndorChange() {
-        //if (_dialoguemanager.ActorwillChange == true) _dialoguemanager.ResumeDialogue();
-        //else _dialoguemanager.DuringDialogue = false;
         _testplayer.SwitchDialogue(false);
         _dialoguemanager.DuringDialogue = false;
     }

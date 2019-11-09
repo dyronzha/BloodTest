@@ -27,9 +27,8 @@ public class DialogueManager : MonoBehaviour{
     void Update(){
         if (DuringDialogue == true) {
             if (Input.GetMouseButtonDown(0) || Input.GetButtonDown("Fire3")) {
-                if (DuringTyping == true) { SkipTypeEffect(); }
-                else {DisplayNextSentence();}
-
+                if (DuringTyping == true)  SkipTypeEffect(); 
+                else DisplayNextSentence();
             }
         }
     }
@@ -58,13 +57,14 @@ public class DialogueManager : MonoBehaviour{
         IconX.enabled = false;
         if (AllDialogueSentences.Count == 0) {
             IconX.enabled = false;
-            EndDialogue();
+            DuringDialogue = false;
+            animator.SetBool("IsOpen", false);
             return;
         }
 
         if (AllActorNames.Peek() == "") {
-            EndDialogue();
-            //記得把空欄位擠出但不丟入text
+            DuringDialogue = false;
+            animator.SetBool("IsOpen", false);
             AllActorNames.Dequeue();
             AllActorSides.Dequeue();
             AllEmotions.Dequeue();
@@ -101,10 +101,6 @@ public class DialogueManager : MonoBehaviour{
             else CheckChar++;
             yield return new WaitForSeconds(TypingSpeed);
         }
-    }
-
-    public void EndDialogue() {
-        animator.SetBool("IsOpen", false);
     }
 
     public void SkipTypeEffect() {
