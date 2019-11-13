@@ -15,7 +15,7 @@ public class EventIO : MonoBehaviour{
     public EventManager _eventmanager;
 
     void Awake(){
-        ReadPath_CSV = Application.streamingAssetsPath + "/1_Event.csv";//之後用switch case選擇章節載入
+        ReadPath_CSV = Application.streamingAssetsPath + "/1_MainEvent.csv";//之後用switch case選擇章節載入
         ReadCSVFile(ReadPath_CSV);
         SetChapterEvent();
     }
