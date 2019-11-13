@@ -26,6 +26,7 @@ public class PlayerControl : MonoBehaviour
 
     public Cinemachine.CinemachineVirtualCamera vcam;
     public Cinemachine.CinemachineVirtualCamera vcam2;
+    public UnityEngine.Playables.PlayableDirector timeline;
 
     // Start is called before the first frame update
     private void Awake()
@@ -55,15 +56,18 @@ public class PlayerControl : MonoBehaviour
         }
         Move();
 
-        if (transform.position.z < -12.0f)
-        {
-            vcam.gameObject.SetActive(false);
-            vcam2.gameObject.SetActive(true);
-        }
-        else {
-            vcam.gameObject.SetActive(true);
-            vcam2.gameObject.SetActive(false);
-        }
+        //if (transform.position.x < -3.5f)
+        //{
+        //    vcam.gameObject.SetActive(false);
+        //    vcam2.gameObject.SetActive(true);
+        //}
+        //else {
+        //    vcam.gameObject.SetActive(true);
+        //    vcam2.gameObject.SetActive(false);
+        //}
+        //if (Input.GetKeyDown(KeyCode.Z)) {
+        //    timeline.Play();
+        //}
     }
 
     private void FixedUpdate()
