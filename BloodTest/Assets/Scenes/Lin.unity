@@ -6759,7 +6759,7 @@ GameObject:
   - component: {fileID: 354642410}
   m_Layer: 0
   m_Name: Event_11
-  m_TagString: Events
+  m_TagString: MainEvent
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -7619,7 +7619,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 505563999}
-  m_LocalRotation: {x: 0.17447889, y: 0.06142809, z: -0.010906786, w: 0.98268247}
+  m_LocalRotation: {x: 0.17430556, y: 0.075439356, z: -0.013394539, w: 0.98170626}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
@@ -8403,7 +8403,7 @@ GameObject:
   - component: {fileID: 544588184}
   m_Layer: 0
   m_Name: Event_5
-  m_TagString: Events
+  m_TagString: MainEvent
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -8447,7 +8447,7 @@ GameObject:
   - component: {fileID: 545032620}
   m_Layer: 0
   m_Name: Event_8
-  m_TagString: Events
+  m_TagString: MainEvent
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -9085,7 +9085,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 610432044}
-  m_LocalRotation: {x: 0.15657553, y: 0.061616287, z: -0.009787499, w: 0.9856936}
+  m_LocalRotation: {x: 0.15641999, y: 0.07567049, z: -0.012019981, w: 0.9847144}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
@@ -13242,9 +13242,9 @@ GameObject:
   - component: {fileID: 1007389993}
   - component: {fileID: 1007389996}
   - component: {fileID: 1007389992}
-  - component: {fileID: 1007389995}
   - component: {fileID: 1007389994}
   - component: {fileID: 1007389998}
+  - component: {fileID: 1007389995}
   m_Layer: 0
   m_Name: DialogueManager
   m_TagString: Untagged
@@ -13264,11 +13264,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5bd2bde82b7a41d49afe8961bac67bc0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _emotionpack: {fileID: 1007389994}
   nameText: {fileID: 1210059978}
   EventText: {fileID: 1380443878}
   StayTime: 5
-  PausePoint: 1
+  _emotionpack: {fileID: 1007389994}
+  anim_eventbox: {fileID: 1885224660}
 --- !u!114 &1007389993
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -13321,12 +13321,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 1007389991}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 192a5139fc1e71e4c839c1d7efb88b22, type: 3}
+  m_Script: {fileID: 11500000, guid: 287f3ce003a47564390ff0f4630eb9f6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ReadNameList: []
-  ReadEmotionList: []
-  ReadEventList: []
   _eventmanager: {fileID: 1007389992}
 --- !u!114 &1007389996
 MonoBehaviour:
@@ -13459,7 +13456,7 @@ GameObject:
   - component: {fileID: 1021683501}
   m_Layer: 0
   m_Name: Event_4
-  m_TagString: Events
+  m_TagString: MainEvent
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -17220,7 +17217,7 @@ GameObject:
   - component: {fileID: 1232474533}
   m_Layer: 0
   m_Name: Event_12
-  m_TagString: Events
+  m_TagString: MainEvent
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -17397,7 +17394,7 @@ GameObject:
   - component: {fileID: 1240788500}
   m_Layer: 0
   m_Name: Event_BossMiddle
-  m_TagString: Events
+  m_TagString: MainEvent
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -18228,6 +18225,8 @@ MonoBehaviour:
   mainCamera: {fileID: 1849571006}
   _dialoguemanager: {fileID: 1007389993}
   _eventmanager: {fileID: 1007389992}
+  _maineventio: {fileID: 1007389998}
+  _randomeventio: {fileID: 1007389995}
 --- !u!136 &1307858340
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -18305,7 +18304,7 @@ GameObject:
   - component: {fileID: 1322601242}
   m_Layer: 0
   m_Name: Event_6
-  m_TagString: Events
+  m_TagString: BoxEvent
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -32548,7 +32547,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1590574662}
-  m_LocalRotation: {x: 0.13866785, y: 0.061783735, z: -0.008668184, w: 0.98837185}
+  m_LocalRotation: {x: 0.13853009, y: 0.07587612, z: -0.010645335, w: 0.98739}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
@@ -54663,7 +54662,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1849571004}
-  m_LocalRotation: {x: 0.15657553, y: 0.061616316, z: -0.009787634, w: 0.9856936}
+  m_LocalRotation: {x: 0.15641999, y: 0.07567052, z: -0.012020117, w: 0.9847143}
   m_LocalPosition: {x: 6.5, y: 2.5, z: 12.5}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
@@ -54992,7 +54991,6 @@ GameObject:
   m_Component:
   - component: {fileID: 1885224659}
   - component: {fileID: 1885224660}
-  - component: {fileID: 1885224661}
   m_Layer: 5
   m_Name: EventBox
   m_TagString: Untagged
@@ -55039,19 +55037,6 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
---- !u!114 &1885224661
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1885224658}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 864496e0571f2f04d98f91260bd8d2c8, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _eventmanager: {fileID: 1007389992}
 --- !u!1 &1887191106
 GameObject:
   m_ObjectHideFlags: 0

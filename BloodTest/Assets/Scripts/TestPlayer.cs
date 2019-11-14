@@ -2,8 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class TestPlayer : MonoBehaviour
-{
+public class TestPlayer : MonoBehaviour{
     public bool hasParent;
     float inputMoveX, inputMoveY;
     Transform model;
@@ -20,6 +19,9 @@ public class TestPlayer : MonoBehaviour
 
     public DialogueManager _dialoguemanager;
     public EventManager _eventmanager;
+    public MainEventIO _maineventio;
+    public RandomEventIO _randomeventio;
+
 
     // Start is called before the first frame update
     private void Awake()
@@ -119,15 +121,21 @@ public class TestPlayer : MonoBehaviour
     }
 
     void OnTriggerEnter(Collider checkpoint){
-        if (checkpoint.tag == "Dialogue") {
+        if (checkpoint.tag == "Dialogue"){
             animator.SetFloat("moveSpeed", 0.0f);
             _dialoguemanager.StartDialogue();
             Destroy(checkpoint.gameObject);
         }
-        else if (checkpoint.tag == "Events"){
-            _eventmanager.DisplayNextEvent();
+        else if (checkpoint.tag == "MainEvent"){
+            _maineventio.TriggerMainEvent();
             Destroy(checkpoint.gameObject);
         }
+
+        else if (checkpoint.tag == "BoxEvent") {
+            _randomeventio.TriggerEventType(checkpoint.tag.ToString());
+            Destroy(checkpoint.gameObject);
+        }
+
     }
 
 }

@@ -173,7 +173,6 @@ public class EmotionPack : MonoBehaviour{
     }
 
     Sprite LoadEventSprite(string FolderName, string FileName) {
-        //event_url = Path.Combine(Application.streamingAssetsPath, "/Events/" + FolderName + "/" + FileName + ".png");
         event_url = Application.streamingAssetsPath + "/Events/" + FolderName + "/" + FileName + ".png";
         byte[] imgData;
         Texture2D tex = new Texture2D(2, 2);
