@@ -56,6 +56,8 @@ public class PlayerControl : MonoBehaviour
         }
         Move();
 
+        if (Input.GetKeyDown(KeyCode.Space)) animator.Play("Attack");
+
         //if (transform.position.x < -3.5f)
         //{
         //    vcam.gameObject.SetActive(false);
@@ -98,6 +100,10 @@ public class PlayerControl : MonoBehaviour
     {
         inputMoveX = Input.GetAxis("Move Horizontal");
         inputMoveY = Input.GetAxis("Move Vertical");
+        if (Input.GetKey(KeyCode.A)) inputMoveX = -1.0f;
+        else if (Input.GetKey(KeyCode.D)) inputMoveX = 1.0f;
+        if (Input.GetKey(KeyCode.W)) inputMoveY = 1.0f;
+        else if (Input.GetKey(KeyCode.S)) inputMoveY = -1.0f;
         Vector3 baseFWD, baseRight;
 
         float inputV = Mathf.Clamp01(inputMoveX * inputMoveX + inputMoveY * inputMoveY);
