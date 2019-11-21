@@ -5,7 +5,7 @@ ModelImporter:
   internalIDToNameTable:
   - first:
       74: -872101434273718535
-    second: karol_Attack1_Bake2
+    second: Attack
   externalObjects:
   - first:
       type: UnityEngine:Material
@@ -50,7 +50,7 @@ ModelImporter:
     extraUserProperties: []
     clipAnimations:
     - serializedVersion: 16
-      name: karol_Attack1_Bake2
+      name: Attack
       takeName: karol_Attack1_Bake2
       internalID: 0
       firstFrame: 1
