@@ -4,6 +4,7 @@ using UnityEngine;
 [ExecuteInEditMode]
 public class ToonLightDirection : MonoBehaviour
 {
+    public Light light;
     // Start is called before the first frame update
     void Start()
     {
@@ -14,5 +15,6 @@ public class ToonLightDirection : MonoBehaviour
     void Update()
     {
         Shader.SetGlobalVector("_LightDir", -transform.forward);
+        Shader.SetGlobalFloat("_LightAttenuation", 0.5f);
     }
 }

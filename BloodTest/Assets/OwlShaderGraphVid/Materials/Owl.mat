@@ -41,7 +41,7 @@ Material:
         m_Offset: {x: 0, y: 0}
     m_Floats:
     - Vector1_373550C6: 1
-    - Vector1_3CFD09B5: 0
+    - Vector1_3CFD09B5: 0.15
     - Vector1_49B8E4A6: 0.028
     - Vector1_54676F70: 5.25
     - Vector1_5F8B816A: 0.749
@@ -58,6 +58,8 @@ Material:
     - _DoubleSidedEnable: 1
     - _DoubleSidedNormalMode: 2
     - _DstBlend: 10
+    - _LightAttenuation: 1
+    - _LightDirAttenuation: 1
     - _ReceivesSSR: 0
     - _RenderQueueType: 5
     - _RequireSplitLighting: 0
