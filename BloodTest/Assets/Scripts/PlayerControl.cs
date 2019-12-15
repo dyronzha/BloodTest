@@ -19,6 +19,11 @@ public class PlayerControl : MonoBehaviour
     Vector3 cameraOffset;
     Cinemachine.CinemachineOrbitalTransposer orbital;
 
+    PlayerState playerState = PlayerState.Move;
+    enum PlayerState { 
+        Move, Attack
+    }
+
     public float speed;
     public float rotateAngle;
     public float rotateSpeed;
@@ -46,15 +51,33 @@ public class PlayerControl : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetButtonDown("LockTarget")) {
-            if (!lockMod) lockMod = enemyManager.ChooseEnemyToLockTarget();
-            else lockMod = false;
+        if (playerState == PlayerState.Move)
+        {
+            if (Input.GetButtonDown("LockTarget"))
+            {
+                if (!lockMod) lockMod = enemyManager.ChooseEnemyToLockTarget();
+                else lockMod = false;
+            }
+            else if (lockMod)
+            {
+                if (Input.GetButtonDown("LeftTarget")) enemyManager.SwitchEnemyLockTarget(-1.0f);
+                else if (Input.GetButtonDown("RightTarget")) enemyManager.SwitchEnemyLockTarget(1.0f);
+            }
+            Move();
+            if(Input.GetKeyDown(KeyCode.Space)){
+                animator.Play("Attack");
+                playerState = PlayerState.Attack;
+            } 
         }
-        else if (lockMod) {
-            if (Input.GetButtonDown("LeftTarget")) enemyManager.SwitchEnemyLockTarget(-1.0f);
-            else if (Input.GetButtonDown("RightTarget")) enemyManager.SwitchEnemyLockTarget(1.0f);
+        else if (playerState == PlayerState.Attack) {
+            //transform.position += speed * animator.deltaPosition.normalized;
+            Debug.Log("attack move  " + animator.deltaPosition.normalized);
+            AnimatorStateInfo aniInfo = animator.GetCurrentAnimatorStateInfo(0);
+            if (aniInfo.normalizedTime > 0.95f) {
+                playerState = PlayerState.Move;
+            }
         }
-        Move();
+
 
         //if (transform.position.x < -3.5f)
         //{
@@ -98,6 +121,10 @@ public class PlayerControl : MonoBehaviour
     {
         inputMoveX = Input.GetAxis("Move Horizontal");
         inputMoveY = Input.GetAxis("Move Vertical");
+        if (Input.GetKey(KeyCode.A)) inputMoveX = -1.0f;
+        else if (Input.GetKey(KeyCode.D)) inputMoveX = 1.0f;
+        if (Input.GetKey(KeyCode.W)) inputMoveY = 1.0f;
+        else if (Input.GetKey(KeyCode.S)) inputMoveY = -1.0f;
         Vector3 baseFWD, baseRight;
 
         float inputV = Mathf.Clamp01(inputMoveX * inputMoveX + inputMoveY * inputMoveY);
@@ -192,7 +219,6 @@ public class PlayerControl : MonoBehaviour
         //    //if(Mathf.Abs(a) > 0.1f)orbital.m_XAxis.Value = Mathf.Lerp(orbital.m_XAxis.Value, orbital.m_XAxis.Value + a, Time.deltaTime*1.0f);
         //}
         #endregion  
-
 
     }
 
