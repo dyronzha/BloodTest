@@ -32,10 +32,10 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     m_Floats:
-    - Vector1_3CFD09B5: 0
-    - Vector1_8386A876: 0.598
+    - Vector1_3CFD09B5: 0.218
+    - Vector1_8386A876: 0.568
     - Vector1_98063928: 0.5
-    - Vector1_C5F28BFB: 0.5
+    - Vector1_C5F28BFB: 1.27
     - _AlphaCutoff: 0.5
     - _AlphaCutoffEnable: 0
     - _AlphaDstBlend: 10
